@@ -96,9 +96,8 @@ class ProductRepositoryTest {
     }
 
 
-
     @Test
-    public void removeById5(){
+    public void removeById5() {
         repository.save(book);
         repository.save(book1);
         repository.save(book2);
@@ -106,12 +105,12 @@ class ProductRepositoryTest {
         repository.save(smartphone1);
         repository.removeById(5);
 
-        Product[] expected = {book,book1,book2,smartphone};
+        Product[] expected = {book, book1, book2, smartphone};
         assertArrayEquals(expected, repository.findAll());
     }
 
     @Test
-    public void findById(){
+    public void findById() {
         repository.save(book);
         repository.save(book1);
         repository.save(book2);
@@ -120,7 +119,7 @@ class ProductRepositoryTest {
 
         repository.findById(4);
 
-        Product[] expected = {book,book1,book2,smartphone,smartphone1};
+        Product[] expected = {book, book1, book2, smartphone, smartphone1};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
     }
