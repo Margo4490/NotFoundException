@@ -49,6 +49,7 @@ class ProductManagerTest {
         managers.add(smartphone);
         managers.add(book);
         managers.add(book1);
+
         Product[] expected = new Product[]{smartphone, book, book1};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
@@ -62,7 +63,6 @@ class ProductManagerTest {
 
         Product[] expected = new Product[]{book2};
         Product[] actual = managers.searchBy("Унесенные ветром");
-
         assertArrayEquals(expected, actual);
     }
 
@@ -72,7 +72,6 @@ class ProductManagerTest {
 
         Product[] expected = new Product[]{smartphone1};
         Product[] actual = managers.searchBy("Samsung Galaxy s21");
-
         assertArrayEquals(expected, actual);
     }
 
@@ -82,7 +81,6 @@ class ProductManagerTest {
 
         Product[] expected = new Product[]{book};
         Product[] actual = managers.searchBy("Война и мир");
-
         assertArrayEquals(expected, actual);
 
     }
@@ -93,7 +91,6 @@ class ProductManagerTest {
 
         Product[] expected = new Product[]{book1};
         Product[] actual = managers.searchBy("Снежная королева");
-
         assertArrayEquals(expected, actual);
 
     }
@@ -101,20 +98,44 @@ class ProductManagerTest {
     @Test
     public void searchByAuthorBook1() {
 
-        Product[] expected = new Product[] {};
+        Product[] expected = new Product[]{};
         Product[] actual = managers.searchBy("Ганс Христиан Андерсен");
-
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void searchByManufacture(){
+    public void searchByManufacture() {
 
         Product[] expected = new Product[]{};
         Product[] actual = managers.searchBy("Apple");
-
-        assertArrayEquals(expected,actual);
+        assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void matchesTest() {
+        managers.add(smartphone1);
+        managers.add(smartphone);
+        managers.add(book1);
+        managers.add(book);
+
+        String name = "Iphone 11";
+
+        Product[] expected = {smartphone};
+        Product[] actual = managers.searchBy(name);
+        assertArrayEquals(expected, actual);
+
+    }
+    @Test
+    public void nameMatches(){
+        managers.add(book);
+        managers.add(book2);
+        managers.add(smartphone);
+
+        String name = "Унесенные ветром";
+
+        Product[] expected = {book2};
+        Product[] actual = managers.searchBy(name);
+        assertArrayEquals(expected, actual);
+    }
 
 }
