@@ -19,6 +19,7 @@ class ProductRepositoryTest {
     private final Book book2 = new Book(3, "Унесенные ветром", 999, "Маргарет Митчел");
     private final Smartphone smartphone = new Smartphone(4, "Iphone 11", 55000, "Apple");
     private final Smartphone smartphone1 = new Smartphone(5, "Samsung Galaxy s21", 51000, "Samsung");
+    private final Smartphone smartphone2 = new Smartphone(6, "Iphone6", 20500, "Apple");
 
 
     @Test
@@ -51,7 +52,7 @@ class ProductRepositoryTest {
         Product book2 = new Book(3, "Унесенные ветром", 999, "Маргарет Митчел");
         Product smartphone = new Smartphone(4, "Iphone 11", 55000, "Apple");
         Product smartphone1 = new Smartphone(5, "Samsung Galaxy s21", 51000, "Samsung");
-
+        Product smartphone2 = new Smartphone(6, "Iphone6", 20500, "Apple");
 
         Product[] expected = {};
         Product[] actual = repository.findAll();
@@ -66,10 +67,11 @@ class ProductRepositoryTest {
         repository.save(book2);
         repository.save(smartphone);
         repository.save(smartphone1);
+        repository.save(smartphone2);
 
         repository.removeById(2);
 
-        Product[] expected = {book, book2, smartphone, smartphone1};
+        Product[] expected = {book, book2, smartphone, smartphone1, smartphone2};
         Product[] actual = repository.findAll();
 
 
@@ -77,18 +79,19 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void removeById1() {
+    void removeById245() {
         repository.save(book);
         repository.save(book1);
         repository.save(book2);
         repository.save(smartphone);
         repository.save(smartphone1);
+        repository.save(smartphone2);
 
         repository.removeById(2);
         repository.removeById(4);
         repository.removeById(5);
 
-        Product[] expected = {book, book2};
+        Product[] expected = {book, book2, smartphone2};
         Product[] actual = repository.findAll();
 
 
@@ -103,9 +106,11 @@ class ProductRepositoryTest {
         repository.save(book2);
         repository.save(smartphone);
         repository.save(smartphone1);
+        repository.save(smartphone2);
+
         repository.removeById(5);
 
-        Product[] expected = {book, book1, book2, smartphone};
+        Product[] expected = {book, book1, book2, smartphone, smartphone2};
         assertArrayEquals(expected, repository.findAll());
     }
 
@@ -116,19 +121,15 @@ class ProductRepositoryTest {
         repository.save(book2);
         repository.save(smartphone);
         repository.save(smartphone1);
+        repository.save(smartphone2);
 
         repository.findById(4);
 
-        Product[] expected = {book, book1, book2, smartphone, smartphone1};
+        Product[] expected = {book, book1, book2, smartphone, smartphone1, smartphone2};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
     }
 
-    @Test
-    public void notFoundException() {
-        assertThrows(NotFoundException.class, () -> repository.removeById(7));
-    }
 }
-
 
 

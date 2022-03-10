@@ -10,12 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
     private ProductRepository repository = new ProductRepository();
-    private ProductManager managers = new ProductManager(repository);
+    ProductManager managers = new ProductManager(repository);
     private final Book book = new Book(1, "Война и мир", 2000, "Л.Н.Толстой");
     private final Book book1 = new Book(2, "Снежная королева", 1000, "Ганс Христиан Андерсен");
     private final Book book2 = new Book(3, "Унесенные ветром", 999, "Маргарет Митчел");
     private final Smartphone smartphone = new Smartphone(4, "Iphone 11", 55000, "Apple");
     private final Smartphone smartphone1 = new Smartphone(5, "Samsung Galaxy s21", 51000, "Samsung");
+    private final Smartphone smartphone2 = new Smartphone(6, "Iphone6", 20500, "Apple");
 
     @Test
 
@@ -25,9 +26,10 @@ class ProductManagerTest {
         managers.add(book2);
         managers.add(smartphone);
         managers.add(smartphone1);
+        managers.add(smartphone2);
 
 
-        Product[] expected = new Product[]{book, book1, book2, smartphone, smartphone1};
+        Product[] expected = new Product[]{book, book1, book2, smartphone, smartphone1, smartphone2};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
 
@@ -58,7 +60,7 @@ class ProductManagerTest {
 
     @Test
 
-    public void searchBy() {
+    public void searchByУнесенныеВетром() {
         managers.add(book2);
 
         Product[] expected = new Product[]{book2};
@@ -67,7 +69,7 @@ class ProductManagerTest {
     }
 
     @Test
-    public void searchBy1() {
+    public void searchBySamsungGalaxy() {
         managers.add(smartphone1);
 
         Product[] expected = new Product[]{smartphone1};
@@ -76,7 +78,7 @@ class ProductManagerTest {
     }
 
     @Test
-    public void searchBy2() {
+    public void searchByВойнаИМир() {
         managers.add(book);
 
         Product[] expected = new Product[]{book};
@@ -86,7 +88,7 @@ class ProductManagerTest {
     }
 
     @Test
-    public void searchBy3() {
+    public void searchByСнежнаяКоролева() {
         managers.add(book1);
 
         Product[] expected = new Product[]{book1};
@@ -107,35 +109,17 @@ class ProductManagerTest {
     public void searchByManufacture() {
 
         Product[] expected = new Product[]{};
+        Product[] actual = managers.searchBy("Samsung");
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void searchByManufactureApple() {
+        managers.add(smartphone);
+        managers.add(smartphone2);
+
+        Product[] expected = new Product[]{smartphone,smartphone2};
         Product[] actual = managers.searchBy("Apple");
         assertArrayEquals(expected, actual);
     }
-
-    @Test
-    public void matchesTest() {
-        managers.add(smartphone1);
-        managers.add(smartphone);
-        managers.add(book1);
-        managers.add(book);
-
-        String name = "Iphone 11";
-
-        Product[] expected = {smartphone};
-        Product[] actual = managers.searchBy(name);
-        assertArrayEquals(expected, actual);
-
-    }
-    @Test
-    public void nameMatches(){
-        managers.add(book);
-        managers.add(book2);
-        managers.add(smartphone);
-
-        String name = "Унесенные ветром";
-
-        Product[] expected = {book2};
-        Product[] actual = managers.searchBy(name);
-        assertArrayEquals(expected, actual);
-    }
-
 }
