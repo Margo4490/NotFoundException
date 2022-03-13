@@ -22,7 +22,6 @@ class ProductRepositoryTest {
     private final Book book3 = new Book(6, "Алхимик", 2050, "Майкл Скотт");
 
 
-
     @Test
     public void shouldSaveOneProduct() {
         repository.save(coreJava1);
@@ -53,7 +52,7 @@ class ProductRepositoryTest {
         Product book2 = new Book(3, "Унесенные ветром", 999, "Маргарет Митчел");
         Product smartphone = new Smartphone(4, "Iphone 11", 55000, "Apple");
         Product smartphone1 = new Smartphone(5, "Samsung Galaxy s21", 51000, "Samsung");
-        Product book3 = new Book (6, "Алхимик", 2050, "Майкл Скотт");
+        Product book3 = new Book(6, "Алхимик", 2050, "Майкл Скотт");
 
         Product[] expected = {};
         Product[] actual = repository.findAll();
@@ -92,7 +91,7 @@ class ProductRepositoryTest {
         repository.removeById(4);
         repository.removeById(5);
 
-        Product[] expected = {book, book2,book3};
+        Product[] expected = {book, book2, book3};
         Product[] actual = repository.findAll();
 
 

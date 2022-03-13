@@ -60,7 +60,7 @@ class ProductManagerTest {
 
     @Test
 
-    public void searchByУнесенныеВетром() {
+    public void searchByBook2() {
         managers.add(book2);
 
         Product[] expected = new Product[]{book2};
@@ -88,7 +88,7 @@ class ProductManagerTest {
     }
 
     @Test
-    public void searchByСнежнаяКоролева() {
+    public void searchByBook1() {
         managers.add(book1);
 
         Product[] expected = new Product[]{book1};
@@ -106,7 +106,7 @@ class ProductManagerTest {
     }
 
     @Test
-    public void searchByAuthorАлхимик() {
+    public void searchByAuthorBook() {
 
         Product[] expected = new Product[]{};
         Product[] actual = managers.searchBy("Пауло Коэльо");
@@ -123,11 +123,11 @@ class ProductManagerTest {
 
 
     @Test
-    public void searchByNameАлхимик() {
+    public void searchByBookWithSameName() {
         managers.add(book);
         managers.add(book3);
 
-        Product[] expected = new Product[]{book,book3};
+        Product[] expected = new Product[]{book, book3};
         Product[] actual = managers.searchBy("Алхимик");
         assertArrayEquals(expected, actual);
     }
